@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+ Filename:      XFUSION-V5-server-ibmc.xml
+ Version:       v1.2
+ Created:       09.21.2017
+ Description:   IBMC data collection oid
+ History:
+-->
+<datacollection-group xmlns="http://xmlns.opennms.org/xsd/config/datacollection" name="XFUSION-V5-SERVER-IBMC-MIB">
+  <resourceType name="v5temperatureDescriptionEntry" label="v5temperatureDescriptionEntry" resourceLabel="Temperature ${v5temperatureObject}">
+    <persistenceSelectorStrategy class="org.opennms.netmgt.collection.support.PersistAllSelectorStrategy"/>
+    <storageStrategy class="org.opennms.netmgt.collection.support.IndexStorageStrategy"/>
+  </resourceType>
+  <group name="v5system" ifType="ignore">
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.1.23" instance="0" alias="v5systemCpuUsage" type="integer"/>
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.1.13" instance="0" alias="v5presentSystemPower" type="integer"/>
+  </group>
+  <group name="v5temperatureDescriptionTable" ifType="all">
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.26.50.1.1" instance="v5temperatureDescriptionEntry" alias="v5temperatureIndex" type="integer"/>
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.26.50.1.2" instance="v5temperatureDescriptionEntry" alias="v5temperatureObject" type="string"/>
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.26.50.1.3" instance="v5temperatureDescriptionEntry" alias="v5temperatureReading" type="integer"/>
+  </group>
+  <group name="v5bmctemperature" ifType="ignore">
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.26.50.1.3" instance="1" alias="v5temperatureInlet" type="integer"/>
+  </group>
+  <group name="v5powerStatistic" ifType="ignore">
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.20.1" instance="0" alias="v5peakPower" type="integer"/>
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.20.3" instance="0" alias="v5averagePower" type="integer"/>
+    <mibObj oid=".1.3.6.1.4.1.2011.2.235.1.1.20.4" instance="0" alias="v5powerConsumption" type="integer"/>
+  </group>
+  <systemDef name="XFUSION V5 iBMC">
+    <sysoid>.1.3.6.1.4.1.2011.2.235</sysoid>
+    <collect>
+      <includeGroup>v5system</includeGroup>
+      <includeGroup>v5bmctemperature</includeGroup>
+      <includeGroup>v5powerStatistic</includeGroup>
+    </collect>
+  </systemDef>
+</datacollection-group>
